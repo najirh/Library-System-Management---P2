@@ -177,7 +177,3 @@ This project showcases SQL skills essential for database management and analysis
 - **Discord**: [Join our community for learning and collaboration](https://discord.gg/36h5f2Z5PK)
 
 Thank you for your interest in this project!
-
-```
-
-Feel free to replace placeholder links and customize the content according to your needs.
