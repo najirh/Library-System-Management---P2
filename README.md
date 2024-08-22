@@ -133,11 +133,11 @@ WHERE member_id = 'C103';
 ```
 
 **Task 3: Delete a Record from the Issued Status Table**
--- Objective: Delete the record with issued_id = 'IS104' from the issued_status table.
+-- Objective: Delete the record with issued_id = 'IS121' from the issued_status table.
 
 ```sql
 DELETE FROM issued_status
-WHERE   issued_id =   'IS104';
+WHERE   issued_id =   'IS121';
 ```
 
 **Task 4: Retrieve All Books Issued by a Specific Employee**
