@@ -80,14 +80,21 @@ CREATE TABLE return_status (
 - **Update**: Updated records in the `employees` table.
 - **Delete**: Removed records from the `members` table as needed.
 
+**Task 1. Create a New Book Record**
+-- "978-1-60129-456-2', 'To Kill a Mockingbird', 'Classic', 6.00, 'yes', 'Harper Lee', 'J.B. Lippincott & Co.')"
+
 ```sql
--- Insert Sample Records
-INSERT INTO books (book_id, book_title, book_author, category, available_copies)
-VALUES (1, 'To Kill a Mockingbird', 'Harper Lee', 'Fiction', 5);
-
--- Retrieve Data
+INSERT INTO books(isbn, book_title, category, rental_price, status, author, publisher)
+VALUES('978-1-60129-456-2', 'To Kill a Mockingbird', 'Classic', 6.00, 'yes', 'Harper Lee', 'J.B. Lippincott & Co.');
 SELECT * FROM books;
+```
+**Task 2: Update an Existing Member's Address**
 
+```sql
+UPDATE members
+SET member_address = '125 Oak St'
+WHERE member_id = 'C103';
+```
 -- Update Records
 UPDATE employees
 SET emp_salary = 60000
