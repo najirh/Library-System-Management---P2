@@ -28,51 +28,85 @@ This project demonstrates the implementation of a Library Management System usin
 ```sql
 CREATE DATABASE library_db;
 
-CREATE TABLE branches (
-    branch_id INT PRIMARY KEY,
-    branch_name VARCHAR(255),
-    branch_location VARCHAR(255)
+DROP TABLE IF EXISTS branch;
+CREATE TABLE branch
+(
+            branch_id VARCHAR(10) PRIMARY KEY,
+            manager_id VARCHAR(10),
+            branch_address VARCHAR(30),
+            contact_no VARCHAR(15)
 );
 
-CREATE TABLE employees (
-    emp_id INT PRIMARY KEY,
-    emp_name VARCHAR(255),
-    emp_position VARCHAR(255),
-    emp_salary FLOAT,
-    branch_id INT,
-    FOREIGN KEY (branch_id) REFERENCES branches(branch_id)
+
+-- Create table "Employee"
+DROP TABLE IF EXISTS employees;
+CREATE TABLE employees
+(
+            emp_id VARCHAR(10) PRIMARY KEY,
+            emp_name VARCHAR(30),
+            position VARCHAR(30),
+            salary DECIMAL(10,2),
+            branch_id VARCHAR(10),
+            FOREIGN KEY (branch_id) REFERENCES  branch(branch_id)
 );
 
-CREATE TABLE members (
-    member_id INT PRIMARY KEY,
-    member_name VARCHAR(255),
-    membership_date DATE
+
+-- Create table "Members"
+DROP TABLE IF EXISTS members;
+CREATE TABLE members
+(
+            member_id VARCHAR(10) PRIMARY KEY,
+            member_name VARCHAR(30),
+            member_address VARCHAR(30),
+            reg_date DATE
 );
 
-CREATE TABLE books (
-    book_id INT PRIMARY KEY,
-    book_title VARCHAR(255),
-    book_author VARCHAR(255),
-    category VARCHAR(255),
-    available_copies INT
+
+
+-- Create table "Books"
+DROP TABLE IF EXISTS books;
+CREATE TABLE books
+(
+            isbn VARCHAR(50) PRIMARY KEY,
+            book_title VARCHAR(80),
+            category VARCHAR(30),
+            rental_price DECIMAL(10,2),
+            status VARCHAR(10),
+            author VARCHAR(30),
+            publisher VARCHAR(30)
 );
 
-CREATE TABLE issued_status (
-    issue_id INT PRIMARY KEY,
-    member_id INT,
-    book_id INT,
-    issue_date DATE,
-    return_date DATE,
-    FOREIGN KEY (member_id) REFERENCES members(member_id),
-    FOREIGN KEY (book_id) REFERENCES books(book_id)
+
+
+-- Create table "IssueStatus"
+DROP TABLE IF EXISTS issued_status;
+CREATE TABLE issued_status
+(
+            issued_id VARCHAR(10) PRIMARY KEY,
+            issued_member_id VARCHAR(30),
+            issued_book_name VARCHAR(80),
+            issued_date DATE,
+            issued_book_isbn VARCHAR(50),
+            issued_emp_id VARCHAR(10),
+            FOREIGN KEY (issued_member_id) REFERENCES members(member_id),
+            FOREIGN KEY (issued_emp_id) REFERENCES employees(emp_id),
+            FOREIGN KEY (issued_book_isbn) REFERENCES books(isbn) 
 );
 
-CREATE TABLE return_status (
-    return_id INT PRIMARY KEY,
-    issue_id INT,
-    return_date DATE,
-    FOREIGN KEY (issue_id) REFERENCES issued_status(issue_id)
+
+
+-- Create table "ReturnStatus"
+DROP TABLE IF EXISTS return_status;
+CREATE TABLE return_status
+(
+            return_id VARCHAR(10) PRIMARY KEY,
+            issued_id VARCHAR(30),
+            return_book_name VARCHAR(80),
+            return_date DATE,
+            return_book_isbn VARCHAR(50),
+            FOREIGN KEY (return_book_isbn) REFERENCES books(isbn)
 );
+
 ```
 
 ### 2. CRUD Operations
