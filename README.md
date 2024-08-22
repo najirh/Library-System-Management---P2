@@ -137,40 +137,72 @@ ON ist.issued_book_isbn = b.isbn
 GROUP BY b.isbn, b.book_title;
 ```
 
+
 ### 4. Data Analysis & Findings
 
 The following SQL queries were used to address specific questions:
 
-1. **Retrieve All Books in a Specific Category**:
+Task 7. **Retrieve All Books in a Specific Category**:
+
 ```sql
 SELECT * FROM books
 WHERE category = 'Classic';
 ```
 
-2. **Find Employees with a Salary Greater Than a Specific Amount**:
+8. **Task 8: Find Total Rental Income by Category**:
+
 ```sql
-SELECT * FROM employees
-WHERE emp_salary > 50000;
+SELECT 
+    b.category,
+    SUM(b.rental_price),
+    COUNT(*)
+FROM 
+issued_status as ist
+JOIN
+books as b
+ON b.isbn = ist.issued_book_isbn
+GROUP BY 1
 ```
 
-3. **List Members Who Registered in the Last 30 Days**:
+9. **List Members Who Registered in the Last 180 Days**:
 ```sql
 SELECT * FROM members
-WHERE membership_date >= CURRENT_DATE - INTERVAL '30 days';
+WHERE membership_date >= CURRENT_DATE - INTERVAL '180 days';
 ```
 
-4. **Count the Number of Books Issued by Each Employee**:
+10. **List Employees with Their Branch Manager's Name and their branch details**:
+
 ```sql
-SELECT issued_emp_id, COUNT(*) AS number_of_books_issued
-FROM issued_status
-GROUP BY issued_emp_id;
+SELECT 
+    e1.emp_id,
+    e1.emp_name,
+    e1.position,
+    e1.salary,
+    b.*,
+    e2.emp_name as manager
+FROM employees as e1
+JOIN 
+branch as b
+ON e1.branch_id = b.branch_id    
+JOIN
+employees as e2
+ON e2.emp_id = b.manager_id
 ```
 
-5. **Create a Table of Books with Rental Price Above a Certain Threshold**:
+Task 11. **Create a Table of Books with Rental Price Above a Certain Threshold**:
 ```sql
 CREATE TABLE expensive_books AS
 SELECT * FROM books
 WHERE rental_price > 7.00;
+```
+
+Task 12: **Retrieve the List of Books Not Yet Returned**
+```sql
+SELECT * FROM issued_status as ist
+LEFT JOIN
+return_status as rs
+ON rs.issued_id = ist.issued_id
+WHERE rs.return_id IS NULL;
 ```
 
 ## Reports
