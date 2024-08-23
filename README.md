@@ -203,7 +203,7 @@ GROUP BY 1
 9. **List Members Who Registered in the Last 180 Days**:
 ```sql
 SELECT * FROM members
-WHERE membership_date >= CURRENT_DATE - INTERVAL '180 days';
+WHERE reg_date >= CURRENT_DATE - INTERVAL '180 days';
 ```
 
 10. **List Employees with Their Branch Manager's Name and their branch details**:
